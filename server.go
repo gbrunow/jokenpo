@@ -22,27 +22,23 @@ func handleConnection(conn net.Conn) {
     fmt.Println("Falha na comunicação com cliente:", err)
   } else {
     fmt.Println(player)
-    if player >= 0 && player <= 2 {
-      s1 := rand.NewSource(time.Now().UnixNano())
-    	r1 := rand.New(s1)
-    	pc = int64(r1.Intn(3))
+    s1 := rand.NewSource(time.Now().UnixNano())
+  	r1 := rand.New(s1)
+  	pc = int64(r1.Intn(3))
 
-      result = player - pc % 3
-      if result < 0 {
-        result += 3
-      }
+    result = player - pc % 3
+    if result < 0 {
+      result += 3
+    }
 
-      err = binary.Write(conn, binary.LittleEndian, &pc)
-      if err != nil{
-        fmt.Println("Falha na comunicação com cliente:", err)
-      }
+    err = binary.Write(conn, binary.LittleEndian, &pc)
+    if err != nil{
+      fmt.Println("Falha na comunicação com cliente:", err)
+    }
 
-      err = binary.Write(conn, binary.LittleEndian, &result)
-      if err != nil{
-        fmt.Println("Falha na comunicação com cliente:", err)
-      }
-    } else {
-      fmt.Println("Jogada Inválida");
+    err = binary.Write(conn, binary.LittleEndian, &result)
+    if err != nil{
+      fmt.Println("Falha na comunicação com cliente:", err)
     }
   }
 }

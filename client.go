@@ -44,14 +44,15 @@ func main() {
   fmt.Println("3 - ENCERRAR");
 
   for move != 3 {
+    move = -1
     conn, err := net.Dial("tcp", "localhost:8080")
     if err != nil {
         fmt.Println("Falha na conexão:", err)
         fmt.Println("4 - TENTAR NOVAMENTE");
-        fmt.Scanf("%d", &move)
+        fmt.Scan(&move)
     } else {
       fmt.Print("Opção: ")
-      fmt.Scanf("%d", &move)
+      fmt.Scan(&move)
 
       if move >= 0 && move <= 2 {
         fmt.Println()
